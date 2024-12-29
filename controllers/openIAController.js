@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const apikey=process.env.API_KEY_PROYECT;
-const urlServidor='http://localhost:4001/';
+const urlServidor='https://api-openai-node.onrender.com/';
 const openai = new OpenAI({ apiKey: apikey });
 
 

@@ -122,6 +122,7 @@ const consultarImagenIA= async (req,res)=>{
 //let dataimagen= `data:image/jpeg;base64${convertToBase64('./imagenes/matematicas/imagen1735327032082comida.jpg')}`;
 //let dataimagens=database64;
 let archivo=req.file.filename;
+const {preguntaai}=req.body;
 let geturl= `${urlServidor}get-imagen/${archivo}` ;
 try{
 
@@ -130,7 +131,7 @@ try{
     messages: [
       { role: 'user', 
         content: [
-            { type: "text", text: "Describeme la imagen?" },
+            { type: "text", text: preguntaai.toString() },
             {
               type: 'image_url',
                 image_url: {

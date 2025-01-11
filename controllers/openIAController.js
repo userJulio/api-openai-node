@@ -16,6 +16,7 @@ const openai = new OpenAI({ apiKey: apikey });
     const {mensajeOpenIA}=req.body;
     if(mensajeOpenIA.trim()==""){
       return  res.status(200).json({
+           status:"error",
            mensaje:"Falta completar la consulta" 
         });
 
@@ -31,7 +32,7 @@ const openai = new OpenAI({ apiKey: apikey });
           console.log("respuesta",response.choices[0].message);
 
        return  res.status(200).json({
-            estado:"success",
+            status:"success",
            resultadoIA: response.choices[0].message
         });
     } catch (error) {

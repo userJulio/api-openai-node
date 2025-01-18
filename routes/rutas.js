@@ -20,6 +20,6 @@ const subidas = multer({storage: almacenamiento});
 router.post("/consultarAI",apiOpenAIConsultas);
 router.post("/subir-imagen",subidas.single("file0"),subirImagen);
 router.get("/get-imagen/:fichero",imagen );
-router.post("/consultarByImage",subidas.single("file0"),consultarImagenIA);
+router.post("/consultarByImage",consultarImagenIA);
 
 export default router;

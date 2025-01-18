@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const apikey=process.env.API_KEY_PROYECT;
-const urlServidor='https://webapitest.aprendiendoconia-chatgpt.com/';
 const openai = new OpenAI({ apiKey: apikey });
 
 
@@ -60,20 +59,20 @@ const subirImagen=async (req,res)=>{
 // Nombre del archivo
 let archivo = req.file.originalname;
 
-// Extension del archivo
-let archivo_split = archivo.split("\.");
-let extension = String(archivo_split[1]).toLowerCase();
 
- if (extension != "png" && extension != "jpg" &&
-        extension != "jpeg"){
+let tipoarchivo=req.file.mimetype;
 
+ if (!tipoarchivo){
+    if(!tipoarchivo.includes("jpeg") && !tipoarchivo.includes("png")){
      // Borrar archivo y dar respuesta
      fs.unlink(req.file.path, (error) => {
       return res.status(400).json({
           status: "error",
-          mensaje: "La imagen debe ser .png , .jog o .jpeg"
+          mensaje: "La imagen debe ser .png , .jpg o .jpeg"
       });
     });
+    }
+
     
   }
 
@@ -81,7 +80,7 @@ return res.status(200).json({
   status:"success",
   imagen: archivo,
   imagenfile: req.file,
-  extension:extension
+  extension:tipoarchivo
 });
 
 
@@ -118,11 +117,12 @@ const imagen = (req, res) => {
 
 const consultarImagenIA= async (req,res)=>{
 
-let archivo=req.file.filename;
-const {preguntaai}=req.body;
-let geturl= `./get-imagen/${archivo}` ;
+const {preguntaai, archivo}=req.body;
+let geturl= `./get-imagen/${archivo}`;
+
 try{
 
+  
   const response = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
     messages: [

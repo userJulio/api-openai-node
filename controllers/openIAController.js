@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const apikey=process.env.API_KEY_PROYECT;
-const urlServidor='https://api-openai-node.onrender.com/';
+const urlServidor='https://webapitest.aprendiendoconia-chatgpt.com/';
 const openai = new OpenAI({ apiKey: apikey });
 
 
@@ -117,11 +117,6 @@ const imagen = (req, res) => {
 
 const consultarImagenIA= async (req,res)=>{
 
- // let {database64}=req.body;
-  //cargar la imagen en el servidor
-//console.log("iamgen:",  `data:image/png;base64${convertToBase64('./imagenes/matematicas/imagen1735327032082comida.jpg')}`);
-//let dataimagen= `data:image/jpeg;base64${convertToBase64('./imagenes/matematicas/imagen1735327032082comida.jpg')}`;
-//let dataimagens=database64;
 let archivo=req.file.filename;
 const {preguntaai}=req.body;
 let geturl= `${urlServidor}get-imagen/${archivo}` ;
@@ -148,7 +143,8 @@ try{
   //Eliminar la imagen
   return  res.status(200).json({
     estado:"success",
-   resultadoIA: respuestaIA
+   resultadoIA: respuestaIA,
+   url: geturl
 });
 
 }catch(error){
@@ -156,6 +152,7 @@ try{
     return res.status(500).json({
       estado:"error",
       resultado: "Hubo un error al procesar la solicitud "+ error.toString(),
+      url: geturl
 
     });
 }

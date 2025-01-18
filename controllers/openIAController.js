@@ -36,7 +36,7 @@ const openai = new OpenAI({ apiKey: apikey });
            resultadoIA: response.choices[0].message
         });
     } catch (error) {
-        console.log(error); 
+    
 
       return  res.status(500).json({
             status:"error",
@@ -143,17 +143,14 @@ try{
   //Eliminar la imagen
   return  res.status(200).json({
     estado:"success",
-   resultadoIA: respuestaIA,
-   url: geturl
+   resultadoIA: respuestaIA
 });
 
 }catch(error){
-  console.log("error:", error);
+  
     return res.status(500).json({
       estado:"error",
-      resultado: "Hubo un error al procesar la solicitud "+ error.toString(),
-      url: geturl
-
+      resultado: "Hubo un error al procesar la solicitud "
     });
 }
   

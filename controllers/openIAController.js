@@ -7,6 +7,7 @@ dotenv.config();
 
 const apikey=process.env.API_KEY_PROYECT;
 const openai = new OpenAI({ apiKey: apikey });
+const urlServ= 'https://webapitest.aprendiendoconia-chatgpt.com/';
 
 
 
@@ -118,7 +119,7 @@ const imagen = (req, res) => {
 const consultarImagenIA= async (req,res)=>{
 
 const {preguntaai, archivo}=req.body;
-let geturl= `./get-imagen/${archivo}`;
+let geturl= `${urlServ}get-imagen/${archivo}`;
 
 try{
 
@@ -128,7 +129,7 @@ try{
     messages: [
       { role: 'user', 
         content: [
-            { type: "text", text: preguntaai.toString() },
+            { type: "text", text: preguntaai.toString()},
             {
               type: 'image_url',
                 image_url: {
